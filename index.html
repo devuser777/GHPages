@@ -2,18 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to My Sample GitHub Page</title>
+    <title>Expense Tracker Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">💸 ExpensePro</div>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu">
+            <label for="nav-toggle" class="nav-toggle-label" tabindex="0">&#9776;</label>
+            <ul class="nav-links">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="index.html" class="nav-link active">Expense Tracker</a></li>
+                <li><a href="#" class="nav-link">Login</a></li>
+                <li><a href="#" class="nav-link">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="container">
-        <h1>Hello, This is my GitHub Page!</h1>
-        <p>This is a sample website published using <a href="https://pages.github.com/">GitHub Pages</a>.</p>
-        <p>Edit <code>index.html</code> and <code>style.css</code> to customize your site.</p>
+        <h1>Expense Tracker Calculator</h1>
+        <div class="currency-select-wrap">
+            <label for="currency-select">Currency: </label>
+            <select id="currency-select">
+                <option value="USD" data-symbol="$">USD ($)</option>
+                <option value="EUR" data-symbol="€">EUR (€)</option>
+                <option value="GBP" data-symbol="£">GBP (£)</option>
+                <option value="INR" data-symbol="₹">INR (₹)</option>
+                <option value="JPY" data-symbol="¥">JPY (¥)</option>
+                <option value="AUD" data-symbol="A$">AUD (A$)</option>
+                <option value="CAD" data-symbol="C$">CAD (C$)</option>
+                <option value="SGD" data-symbol="S$">SGD (S$)</option>
+                <option value="ZAR" data-symbol="R">ZAR (R)</option>
+            </select>
+        </div>
+        <form id="expense-form" autocomplete="off">
+            <input type="text" id="desc" placeholder="Expense Description" required>
+            <input type="number" id="amount" placeholder="Amount" min="0" step="0.01" required>
+            <button type="submit">Add Expense</button>
+        </form>
+        <ul id="expense-list"></ul>
+        <div class="total">
+            Total: <span id="currency-symbol">$</span><span id="total">0.00</span>
+        </div>
         <footer>
             <hr>
-            <p>Created by GitHub Copilot • <a href="https://github.com/">GitHub</a></p>
+            <p>Created by devuser777 • Powered by GitHub Pages</p>
         </footer>
     </div>
+    <script>
+        const form = document.getElementById('expense-form');
+        const desc = document.getElementById('desc');
+        const amount = document.getElementById('amount');
+        const list = document.getElementById('expense-list');
+        const total = document.getElementById('total');
+        const currencySelect = document.getElementById('currency-select');
+        const currencySymbolSpan = document.getElementById('currency-symbol');
+        let currencySymbol = '$';
+        let expenses = [];
+
+        // Handle currency change
+        currencySelect.addEventListener('change', function() {
+            currencySymbol = currencySelect.options[currencySelect.selectedIndex].getAttribute('data-symbol');
+            currencySymbolSpan.textContent = currencySymbol;
+            updateList();
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const description = desc.value.trim();
+            const value = parseFloat(amount.value);
+            if (!description || isNaN(value) || value < 0) return;
+
+            expenses.push({ description, value });
+            updateList();
+            form.reset();
+        });
+
+        function updateList() {
+            list.innerHTML = '';
+            let sum = 0;
+            expenses.forEach((exp, idx) => {
+                sum += exp.value;
+                const li = document.createElement('li');
+                li.textContent = `${exp.description}: ${currencySymbol}${exp.value.toFixed(2)}`;
+                const delBtn = document.createElement('button');
+                delBtn.textContent = 'Delete';
+                delBtn.className = 'delete-btn';
+                delBtn.onclick = () => {
+                    expenses.splice(idx, 1);
+                    updateList();
+                };
+                li.appendChild(delBtn);
+                list.appendChild(li);
+            });
+            total.textContent = sum.toFixed(2);
+        }
+
+        // Mobile nav close on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-toggle').checked = false;
+            });
+        });
+
+        // Initialize with default
+        currencySymbol = currencySelect.options[currencySelect.selectedIndex].getAttribute('data-symbol');
+        currencySymbolSpan.textContent = currencySymbol;
+    </script>
 </body>
 </html>

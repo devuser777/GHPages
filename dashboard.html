@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | ExpensePro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">💸 ExpensePro</div>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu">
+            <label for="nav-toggle" class="nav-toggle-label" tabindex="0">&#9776;</label>
+            <ul class="nav-links">
+                <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+                <li><a href="index.html" class="nav-link">Expense Tracker</a></li>
+                <li><a href="#" class="nav-link">Login</a></li>
+                <li><a href="#" class="nav-link">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Welcome to Your Dashboard</h1>
+        <div class="dashboard-summary">
+            <div class="dash-card">
+                <div class="dash-value">$2,300</div>
+                <div class="dash-label">This Month's Expenses</div>
+            </div>
+            <div class="dash-card">
+                <div class="dash-value">$650</div>
+                <div class="dash-label">This Week's Expenses</div>
+            </div>
+            <div class="dash-card">
+                <div class="dash-value">$120</div>
+                <div class="dash-label">Today's Expenses</div>
+            </div>
+        </div>
+        <section class="dashboard-section">
+            <h2>Get Started</h2>
+            <ul>
+                <li>Track your daily expenses in the <a href="index.html">Expense Tracker</a> tab.</li>
+                <li>View summaries of your spending here on your Dashboard.</li>
+                <li>Login for personalized insights and to save your data.</li>
+            </ul>
+        </section>
+        <section class="dashboard-section">
+            <h2>Recent Tips</h2>
+            <ul>
+                <li>Set a monthly budget and stick to it.</li>
+                <li>Review your expenses regularly to identify savings.</li>
+                <li>Use the delete button to remove incorrect entries from your tracker.</li>
+            </ul>
+        </section>
+        <footer>
+            <hr>
+            <p>Created by devuser777 • Powered by GitHub Pages</p>
+        </footer>
+    </div>
+    <script>
+        // Mobile nav close on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-toggle').checked = false;
+            });
+        });
+    </script>
+</body>
+</html>
