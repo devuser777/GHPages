@@ -202,7 +202,6 @@ form {
 }
 
 input[type="text"], input[type="number"] {
-    flex: 1 1 150px;
     min-width: 0;
     padding: 0.6rem 0.7rem;
     border: 1.5px solid var(--accent);
